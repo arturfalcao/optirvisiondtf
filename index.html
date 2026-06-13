@@ -242,9 +242,9 @@ footer a{text-decoration:none}footer a:hover{color:var(--near-black)}
 <div class="modal" id="modal"><div class="box">
   <button class="x" data-close-modal aria-label="Close">×</button>
   <h3>Request access</h3>
-  <p>Tell us about your shop. We're onboarding a small number of DTF printers — we'll be in touch to set up your 30-day refundable trial.</p>
-  <!-- TODO: replace action with your Formspree endpoint, or swap for a Calendly inline embed -->
-  <form action="https://formspree.io/f/REPLACE_ME" method="POST">
+  <p>Tell us about your shop. We're onboarding a small number of DTF printers — we'll be in touch to set up your 30-day refundable trial. Prefer email? <a href="mailto:celso@optirvision.com">celso@optirvision.com</a></p>
+  <!-- TODO: for proper lead capture, replace the mailto action with a Formspree endpoint, or embed Calendly -->
+  <form action="mailto:celso@optirvision.com" method="POST" enctype="text/plain">
     <label>Name</label><input name="name" required>
     <label>Work email</label><input type="email" name="email" required>
     <label>Company</label><input name="company" required>
