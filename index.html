@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OptirVision DTF — caught at the printer, not at the press</title>
+<meta name="description" content="Edge defect inspection for DTF printers. The defects that waste your film — caught where they start. Early access: run it on your line, 30 days, fully refundable." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='72' fill='none' stroke='%2300B5E2' stroke-width='18'/%3E%3Ccircle cx='100' cy='100' r='6' fill='%2300B5E2'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cobalt:#003E80;--cobalt-soft:#0F4E96;--cyan:#00B5E2;--cyan-soft:#33C4E8;
+  --near-black:#0E1116;--ink:#0a0d12;--cool-white:#F5F7FA;--slate:#5B6573;--line:#E2E7EE;
+  --display:"Bebas Neue",system-ui,sans-serif;--body:"Inter",system-ui,-apple-system,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;
+  --focus:0 0 0 3px rgba(0,181,226,.4);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--near-black);background:var(--cool-white);line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.98;letter-spacing:.005em}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+a{color:inherit}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);text-transform:uppercase;letter-spacing:.02em;font-size:18px;height:52px;padding:0 24px;border-radius:5px;border:1.5px solid transparent;text-decoration:none;cursor:pointer;transition:.13s cubic-bezier(.2,0,0,1)}
+.btn--cyan{background:var(--cyan);color:var(--ink);border-color:var(--cyan)}
+.btn--cyan:hover{background:var(--cyan-soft);border-color:var(--cyan-soft)}
+.btn--out{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.btn--out:hover{border-color:#fff}
+.btn--cobalt{background:var(--cobalt);color:#fff;border-color:var(--cobalt)}
+.btn--cobalt:hover{background:var(--cobalt-soft)}
+.btn:focus-visible{outline:none;box-shadow:var(--focus)}
+
+/* header */
+.hdr{position:absolute;top:0;left:0;right:0;z-index:30}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:24px;color:#fff;text-decoration:none}
+.brand .dtf{color:var(--cyan)}
+.hdr .btn{height:40px;font-size:15px}
+
+/* hero — dark, dramatic, minimal */
+.hero{position:relative;background:var(--ink);color:#fff;min-height:92vh;display:flex;align-items:center;overflow:hidden}
+.hero .reticle{position:absolute;right:-120px;top:50%;transform:translateY(-50%);width:680px;height:680px;opacity:.16;pointer-events:none}
+.hero .scan{position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.5;animation:scan 6s linear infinite}
+@keyframes scan{0%{top:8%}100%{top:92%}}
+.hero-inner{position:relative;z-index:2;max-width:760px}
+.hero .eyebrow{color:var(--cyan)}
+.hero h1{font-size:clamp(52px,9vw,108px);margin:16px 0 0}
+.hero h1 .b{color:var(--cyan)}
+.hero p{font-size:19px;color:#aeb8c6;max-width:54ch;margin-top:22px}
+.hero p b{color:#fff;font-weight:500}
+.hero .actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+
+/* hook band */
+.hook{background:var(--cool-white);text-align:center;padding:84px 0}
+.hook h2{font-size:clamp(30px,5vw,52px);color:var(--cobalt);max-width:20ch;margin:0 auto;line-height:1.02}
+.hook .small{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin-bottom:16px;display:block}
+
+/* keywords */
+.keys{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:64px 0}
+.keys .row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}
+@media(max-width:720px){.keys .row{grid-template-columns:1fr;gap:32px}}
+.keys h3{font-size:30px;color:var(--near-black)}
+.keys p{color:var(--slate);font-size:14px;margin-top:6px}
+.keys .lead{text-align:center;color:var(--slate);max-width:48ch;margin:0 auto 40px;font-size:17px}
+/* how it works */
+.how{background:var(--cool-white);padding:72px 0}
+.how .head{text-align:center;max-width:60ch;margin:0 auto 34px}
+.how .head .eyebrow{color:var(--cobalt)}
+.how .head h2{font-size:38px;margin-top:8px}
+.how .panel{background:var(--ink);border-radius:12px;padding:16px;box-shadow:0 26px 64px -32px rgba(14,17,22,.55)}
+.how .panel svg{display:block;width:100%;height:auto}
+.how .cap{text-align:center;font-family:var(--mono);font-size:11px;color:var(--slate);margin-top:12px;letter-spacing:.05em}
+.how .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:34px}
+@media(max-width:720px){.how .steps{grid-template-columns:1fr}}
+.how .step{padding-left:42px;position:relative}
+.how .step .n{position:absolute;left:0;top:-4px;font-family:var(--display);font-size:30px;color:var(--cyan)}
+.how .step h4{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:21px;margin-bottom:4px}
+.how .step p{color:var(--slate);font-size:14px}
+
+/* principles strip */
+.strip{background:var(--cool-white);padding:56px 0}
+.strip .row{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate)}
+.strip .row b{color:var(--cobalt)}
+
+/* cta / early access — dark */
+.cta{background:var(--ink);color:#fff;text-align:center;padding:96px 0}
+.cta .eyebrow{color:var(--cyan)}
+.cta h2{font-size:clamp(34px,6vw,64px);margin:14px 0 0}
+.cta p{color:#aeb8c6;font-size:18px;max-width:52ch;margin:18px auto 0}
+.cta p b{color:#fff;font-weight:500}
+.cta .actions{margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta .fine{font-family:var(--mono);font-size:12px;color:#6b7685;margin-top:18px;letter-spacing:.04em}
+
+footer{background:#fff;border-top:1px solid var(--line);padding:32px 0;color:var(--slate);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+footer a{text-decoration:none}footer a:hover{color:var(--near-black)}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(10,13,18,.72);display:none;align-items:center;justify-content:center;z-index:60;padding:20px}
+.modal.open{display:flex}
+.modal .box{background:#fff;border-radius:8px;max-width:460px;width:100%;padding:28px}
+.modal h3{font-size:28px;color:var(--cobalt)}
+.modal p{color:var(--slate);font-size:15px;margin:8px 0 18px}
+.modal label{font-size:13px;color:var(--slate);display:block;margin:10px 0 4px}
+.modal input,.modal textarea{width:100%;padding:11px 12px;border:1px solid #CDD4DE;border-radius:5px;font:inherit}
+.modal input:focus,.modal textarea:focus{outline:none;box-shadow:var(--focus);border-color:var(--cyan)}
+.modal .r{display:flex;gap:10px;margin-top:18px}
+.x{background:none;border:none;font-size:22px;color:var(--slate);cursor:pointer;float:right;line-height:1}
+.btn--ghost{background:#fff;color:var(--cobalt);border-color:var(--cobalt)}
+</style>
+</head>
+<body>
+
+<header class="hdr"><div class="wrap">
+  <a class="brand" href="#top">
+    <svg width="26" height="26" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="72" fill="none" stroke="#fff" stroke-width="16"/><g stroke="#fff" stroke-width="11"><line x1="100" y1="8" x2="100" y2="26"/><line x1="100" y1="174" x2="100" y2="192"/><line x1="8" y1="100" x2="26" y2="100"/><line x1="174" y1="100" x2="192" y2="100"/></g><circle cx="100" cy="100" r="6" fill="#00B5E2"/></svg>
+    Optirvision <span class="dtf">DTF</span>
+  </a>
+  <a class="btn btn--cyan" data-open-modal href="#access">Request access</a>
+</div></header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="scan"></div>
+  <svg class="reticle" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="80" fill="none" stroke="#00B5E2" stroke-width="2"/><circle cx="100" cy="100" r="50" fill="none" stroke="#00B5E2" stroke-width="1.5"/><g stroke="#00B5E2" stroke-width="2"><line x1="100" y1="0" x2="100" y2="30"/><line x1="100" y1="170" x2="100" y2="200"/><line x1="0" y1="100" x2="30" y2="100"/><line x1="170" y1="100" x2="200" y2="100"/></g><circle cx="100" cy="100" r="5" fill="#00B5E2"/></svg>
+  <div class="wrap"><div class="hero-inner">
+    <span class="eyebrow">Edge QC for DTF printers · early access</span>
+    <h1>Caught at the printer.<br><span class="b">Not at the press.</span></h1>
+    <p>The defects that waste your film — <b>banding, dead nozzles, white-layer dropout</b> — start at the head. You find them downstream, when the roll's already gone. We're building something that watches the print <b>on the machine</b>, and never sends a thing to a cloud.</p>
+    <div class="actions">
+      <a class="btn btn--cyan" data-open-modal href="#access">Request access →</a>
+      <a class="btn btn--out" href="#access">See how to get it</a>
+    </div>
+  </div></div>
+</section>
+
+<section class="hook">
+  <div class="wrap">
+    <span class="small">The expensive defect</span>
+    <h2>The one that costs you most is the one you don't see until the press.</h2>
+  </div>
+</section>
+
+<section class="keys" id="what">
+  <div class="wrap">
+    <p class="lead">The defects that quietly eat your film:</p>
+    <div class="row">
+      <div><h3>Banding</h3><p>The slow density drift you only notice once the run's done.</p></div>
+      <div><h3>Dead nozzles</h3><p>The thin streak down the print — including the white layer you can't see on film.</p></div>
+      <div><h3>On your machine</h3><p>It runs at the printer. Your artwork never leaves the shop.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">The idea</span>
+      <h2>How it works</h2>
+    </div>
+    <div class="panel">
+      <svg viewBox="0 0 960 400" role="img" aria-label="Concept: a camera over the DTF web flags banding and a nozzle streak">
+        <defs>
+          <linearGradient id="web" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#202a39"/><stop offset="1" stop-color="#161d28"/></linearGradient>
+          <linearGradient id="roll" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#39455a"/><stop offset=".5" stop-color="#6a7c98"/><stop offset="1" stop-color="#39455a"/></linearGradient>
+        </defs>
+        <!-- mounting bar + camera -->
+        <rect x="150" y="40" width="660" height="7" rx="3.5" fill="#2a3342"/>
+        <polygon points="470,98 490,98 615,250 345,250" fill="#00B5E2" opacity="0.06"/>
+        <rect x="446" y="40" width="68" height="10" rx="3" fill="#2a3342"/>
+        <rect x="430" y="50" width="100" height="52" rx="9" fill="#1c2532" stroke="#3a475c"/>
+        <circle cx="480" cy="80" r="14" fill="#0b0f15" stroke="#00B5E2" stroke-width="3"/>
+        <circle cx="480" cy="80" r="4" fill="#00B5E2"/>
+        <text x="438" y="120" font-family="JetBrains Mono, monospace" font-size="10" fill="#5b6573">on-device camera</text>
+        <!-- status chip -->
+        <rect x="678" y="56" width="182" height="48" rx="8" fill="#141b26" stroke="#2a3342"/>
+        <circle cx="700" cy="80" r="5" fill="#00B5E2"/>
+        <text x="715" y="77" font-family="JetBrains Mono, monospace" font-size="11" fill="#e6ebf2">DEFECT FLAGGED</text>
+        <text x="715" y="92" font-family="JetBrains Mono, monospace" font-size="9" fill="#7c8799">banding · nozzle</text>
+        <!-- rollers + web -->
+        <rect x="92" y="258" width="40" height="100" rx="20" fill="url(#roll)"/>
+        <rect x="828" y="258" width="40" height="100" rx="20" fill="url(#roll)"/>
+        <rect x="112" y="272" width="736" height="72" fill="url(#web)"/>
+        <!-- printed artwork -->
+        <rect x="150" y="286" width="92" height="44" rx="4" fill="#34507a" opacity=".85"/>
+        <circle cx="280" cy="308" r="22" fill="#3a6b6e" opacity=".85"/>
+        <rect x="690" y="288" width="120" height="40" rx="4" fill="#475068" opacity=".7"/>
+        <!-- banding region -->
+        <g opacity="0.55">
+          <rect x="322" y="280" width="200" height="56" fill="#283246"/>
+          <rect x="322" y="289" width="200" height="4" fill="#4b5a74"/>
+          <rect x="322" y="301" width="200" height="4" fill="#4b5a74"/>
+          <rect x="322" y="313" width="200" height="4" fill="#4b5a74"/>
+          <rect x="322" y="325" width="200" height="4" fill="#4b5a74"/>
+        </g>
+        <!-- nozzle streak -->
+        <rect x="600" y="272" width="3" height="72" fill="#e6ebf2" opacity="0.92"/>
+        <!-- inspection overlay -->
+        <rect x="316" y="276" width="212" height="64" fill="none" stroke="#00B5E2" stroke-width="2"/>
+        <rect x="316" y="260" width="86" height="16" fill="#00B5E2"/>
+        <text x="322" y="272" font-family="JetBrains Mono, monospace" font-size="10" fill="#0b0f15">BANDING</text>
+        <polygon points="601,262 595,252 607,252" fill="#00B5E2"/>
+        <text x="612" y="259" font-family="JetBrains Mono, monospace" font-size="9" fill="#00B5E2">NOZZLE</text>
+        <!-- feed -->
+        <text x="120" y="372" font-family="JetBrains Mono, monospace" font-size="9" fill="#5b6573">FILM FEED →</text>
+      </svg>
+    </div>
+    <div class="cap">concept illustration — not a product screenshot</div>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><h4>Watch</h4><p>A camera over the web sees every print as it comes off the head.</p></div>
+      <div class="step"><span class="n">2</span><h4>Detect</h4><p>On-device computer vision flags banding, dead nozzles and white-layer dropout.</p></div>
+      <div class="step"><span class="n">3</span><h4>Act</h4><p>It flags the defect at the source — built to stop the print before the roll's gone.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="access">
+  <div class="wrap">
+    <span class="eyebrow">Early access</span>
+    <h2>We'd rather show you than tell you.</h2>
+    <p>We're opening it to a handful of DTF shops first. Put it on your line for <b>30 days</b>. €700 to start — <b>fully refundable</b>. Keep it for €4,000 total, or send it back and we refund the €700. You judge it on your own prints; we don't ask you to take our word.</p>
+    <div class="actions">
+      <a class="btn btn--cyan" data-open-modal href="#">Request access →</a>
+    </div>
+    <div class="fine">Limited spots · on-prem · no data leaves your premises</div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <div>
+    <span class="tag">Optirvision DTF · Computer vision for DTF print shops</span><br>
+    <span style="font-size:12px">© 2026 OptirVision · <!--TODO legal name/address-->[registered company name], Portugal</span>
+  </div>
+  <div style="display:flex;gap:20px">
+    <a href="/privacy.html">Privacy &amp; your data</a>
+    <a href="mailto:celso@optirvision.com"><!--TODO-->celso@optirvision.com</a>
+  </div>
+</div></footer>
+
+<div class="modal" id="modal"><div class="box">
+  <button class="x" data-close-modal aria-label="Close">×</button>
+  <h3>Request access</h3>
+  <p>Tell us about your shop. We're onboarding a small number of DTF printers — we'll be in touch to set up your 30-day refundable trial.</p>
+  <!-- TODO: replace action with your Formspree endpoint, or swap for a Calendly inline embed -->
+  <form action="https://formspree.io/f/REPLACE_ME" method="POST">
+    <label>Name</label><input name="name" required>
+    <label>Work email</label><input type="email" name="email" required>
+    <label>Company</label><input name="company" required>
+    <label>Your DTF setup (printer / how many / roll-to-roll?)</label><textarea name="setup" rows="2"></textarea>
+    <div class="r">
+      <button class="btn btn--cobalt" type="submit" style="flex:1;justify-content:center">Send →</button>
+      <button class="btn btn--ghost" type="button" data-close-modal>Cancel</button>
+    </div>
+  </form>
+</div></div>
+
+<script>
+  var m=document.getElementById('modal');
+  document.querySelectorAll('[data-open-modal]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();m.classList.add('open')})});
+  document.querySelectorAll('[data-close-modal]').forEach(function(b){b.addEventListener('click',function(){m.classList.remove('open')})});
+  m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')m.classList.remove('open')});
+</script>
+</body>
+</html>
